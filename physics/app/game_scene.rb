@@ -42,6 +42,10 @@ class GameScene < SKScene
   end
 
   def update currentTime
+    if(@ball.position.y < -100)
+      @ball.position = CGPointMake 10, device_screen_height
+      @ball.physicsBody = SKPhysicsBody.bodyWithCircleOfRadius(15)
+    end
   end
 
   def didBeginContact _
