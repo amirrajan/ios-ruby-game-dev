@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+$:.unshift("/Library/RubyMotion/lib")
+require 'motion/project/template/ios'
+
+begin
+  require 'bundler'
+  Bundler.require
+rescue LoadError
+end
+
+Motion::Project::App.setup do |app|
+  app.name = 'collision-detection'
+  app.frameworks = %w(CoreGraphics AVFoundation UIKit QuartzCore SpriteKit Foundation AudioToolbox)
+  app.info_plist['UIRequiresFullScreen'] = true
+  app.device_family = [:iphone, :ipad]
+  app.icons = ['large', 'medium', 'small']
+
+  # development
+  app.codesign_certificate = 'iPhone Developer: Amirali Rajan'
+  app.provisioning_profile = './profiles/Development.mobileprovision'
+
+  # test
+  # app.codesign_certificate = "iPhone Distribution: Amirali Rajan"
+  # app.provisioning_profile = './profiles/Distribution.mobileprovision'
+  # app.entitlements['beta-reports-active'] = true
+
+  # production
+  # app.codesign_certificate = "iPhone Distribution: Amirali Rajan"
+  # app.provisioning_profile = './profiles/Distribution.mobileprovision'
+end
+
+namespace :sim do
+  task :five do
+    system("rake simulator device_name='iPhone 5'")
+  end
+
+  task :six do
+    system("rake simulator device_name='iPhone 6'")
+  end
+
+  task :plus do
+    system("rake simulator device_name='iPhone 6 Plus'")
+  end
+
+  task :ipad do
+    system("rake simulator device_name='iPad Pro (9.7 inch)'")
+  end
+
+  task :ipadpro do
+    system("rake simulator device_name='iPad Pro (12.9 inch)'")
+  end
+end
