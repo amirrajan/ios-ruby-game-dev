@@ -4,6 +4,12 @@ To run the application:
 
 `rake` will run the app in the iPhone 6 simulator.
 
+Here's what it looks like:
+
+<p align="center" style="border: solid 1px silver;">
+  <img src="touch-event.gif" width="200px" />
+</p>
+
 High level project structure:
 
 - All code is located in the `app` folder.
