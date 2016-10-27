@@ -7,7 +7,7 @@ To run the application:
 Here's what it looks like:
 
 <p align="center" style="border: solid 1px silver;">
-  <img src="particle-effect.gif" width="200px" />
+  <img src="particle-effects.gif" width="200px" />
 </p>
 
 High level project structure:
