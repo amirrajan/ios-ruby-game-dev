@@ -22,20 +22,20 @@ Steps to get started with RubyMotion:
 
 You'll want to go through the projects in the following order:
 
-- [`hello-world`](/hello-world): This sample app shows how to set up a scene, get a
+- [hello-world](/hello-world): This sample app shows how to set up a scene, get a
   label on the page, and have it update within the game loop.
-- [`create-sprite`](): This sample app shows how to create a single sprite
+- [create-sprite](/create-sprite): This sample app shows how to create a single sprite
   and put it on the screen. Within the game loop, the sprite's angle
   is updated so that it spins.
-- [`touch-event`](): This sample app shows how to accept a simple tap
+- [touch-event](/touch-event): This sample app shows how to accept a simple tap
   event from the player.
-- [`particle-effects`](): This sample app shows how to create particle
+- [particle-effects](/particle-effects): This sample app shows how to create particle
   effects programatically.
-- [`collision-detection`](): This sample app shows how to do collision
+- [collision-detection](/collision-detection): This sample app shows how to do collision
   detection using SpriteKit's physics engine.
-- [`physics`](): This sample app shows how to use SpriteKit's physic
+- [physics](/physics): This sample app shows how to use SpriteKit's physic
   engine to apply gravity to sprites.
-- [`actions`](): This sample app shows how to use SpriteKit's declarative
+- [actions](/actions): This sample app shows how to use SpriteKit's declarative
   animations to create a camera shake.
 
 ## ObjectiveC to Ruby ##
