@@ -1,5 +1,5 @@
 class GameScene < SKScene
-  BULLET_SPEED = 0.01
+  BULLET_SPEED = 2.5
   WORLD_WIDTH = UIScreen.mainScreen.bounds.size.width
   WORLD_HEIGHT = UIScreen.mainScreen.bounds.size.height
   SHIP_SIZE = WORLD_WIDTH.fdiv(14)
@@ -164,7 +164,7 @@ class GameScene < SKScene
     random_enemy = @enemies.sample
     @bullets << add_sprite('enemy_bullet',
                            random_enemy.position.x,
-                           random_enemy.position.y - SHIP_SIZE.fdiv(2) + BULLET_SIZE.fdiv(2),
+                           random_enemy.position.y - SHIP_SIZE.fdiv(2) - BULLET_SIZE.fdiv(2),
                            BULLET_SIZE,
                            PLAYER_SHIP_ENEMY_BULLET_CATEGORY)
   end
