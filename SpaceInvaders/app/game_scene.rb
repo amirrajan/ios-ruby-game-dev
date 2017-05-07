@@ -1,5 +1,7 @@
 class GameScene < SKScene
   BULLET_SPEED = 2.5
+  BOOST_POWER = 0.95
+  BOOST_DRAG_PERCENTAGE = 0.95
   WORLD_WIDTH = UIScreen.mainScreen.bounds.size.width
   WORLD_HEIGHT = UIScreen.mainScreen.bounds.size.height
   SHIP_SIZE = WORLD_WIDTH.fdiv(14)
@@ -8,11 +10,12 @@ class GameScene < SKScene
   PLAYER_SHIP_ENEMY_BULLET_CATEGORY = 2
   ENEMY_SHIP_PLAYER_BULLET_CATEGORY = 4
   PLAYER_Y_POSITION = 150
+  INSTRUCTIONS_FONT = 17
 
   def didMoveToView view
     $self = self
     self.scaleMode = SKSceneScaleModeAspectFit
-    physicsWorld.gravity = CGVectorMake(0, 0)
+    physicsWorld.gravity = CGVectorMake 0, 0
     physicsWorld.contactDelegate = self
     @live_canvas = SKNode.new
     @dead_canvas = SKNode.new
@@ -20,19 +23,30 @@ class GameScene < SKScene
     addChild @dead_canvas
     @bullets = []
     @enemies = []
-    @score_label = add_label('', WORLD_WIDTH.fdiv(2), WORLD_HEIGHT.fdiv(2), 100)
-    @instructions_label_one = add_label('Tap hereish to move right.', WORLD_WIDTH - WORLD_WIDTH.fdiv(4), PLAYER_Y_POSITION - SHIP_SIZE * 2, 17)
-    @instructions_label_two = add_label('Tap hereish to move left.', WORLD_WIDTH.fdiv(4), PLAYER_Y_POSITION - SHIP_SIZE * 2, 17)
-    @instructions_label_three = add_label('Tap anywhere ABOVE the ship to shoot.', WORLD_WIDTH.fdiv(2), PLAYER_Y_POSITION + SHIP_SIZE * 1.5, 17)
-    @ship = add_sprite('ship', 0, 0, SHIP_SIZE, PLAYER_SHIP_ENEMY_BULLET_CATEGORY)
+    @score_label = add_label '', WORLD_WIDTH.fdiv(2), WORLD_HEIGHT.fdiv(2), 100
+    @instructions_label_one = add_label 'Tap hereish to move right.',
+                                        WORLD_WIDTH - WORLD_WIDTH.fdiv(4),
+                                        PLAYER_Y_POSITION.fdiv(2),
+                                        INSTRUCTIONS_FONT
+    @instructions_label_two = add_label 'Tap hereish to move left.',
+                                        WORLD_WIDTH.fdiv(4),
+                                        PLAYER_Y_POSITION.fdiv(2),
+                                        INSTRUCTIONS_FONT
+    @instructions_label_three = add_label 'Tap anywhere ABOVE the ship to shoot.',
+                                          WORLD_WIDTH.fdiv(2),
+                                          PLAYER_Y_POSITION + SHIP_SIZE * 1.5,
+                                          INSTRUCTIONS_FONT
+    @ship = add_sprite 'ship', 0, 0, SHIP_SIZE, PLAYER_SHIP_ENEMY_BULLET_CATEGORY
     reset_game
   end
 
   def reset_game
     @dx = 0
     @hide_instructions = false
-    [@instructions_label_one, @instructions_label_two, @instructions_label_three].each { |i| i.alpha = 1 }
-    @ship.position = CGPointMake(WORLD_WIDTH.fdiv(2), PLAYER_Y_POSITION)
+    @instructions_label_one.alpha =
+      @instructions_label_two.alpha =
+      @instructions_label_three.alpha = 1
+    @ship.position = CGPointMake WORLD_WIDTH.fdiv(2), PLAYER_Y_POSITION
     reset_enemies
     @time_between_enemy_bullets = 600
     @bullets.each(&:removeFromParent)
@@ -116,9 +130,9 @@ class GameScene < SKScene
       @dx = 0
     end
 
-    @dx *= 0.95
+    @dx *= BOOST_DRAG_PERCENTAGE
 
-    @boost_direction && @dx += 0.95 * @boost_direction
+    @boost_direction && @dx += BOOST_POWER * @boost_direction
   end
 
   def touchesBegan touches, withEvent: _
