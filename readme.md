@@ -39,6 +39,8 @@ You'll want to go through the projects in the following order:
   animations to create a camera shake.
 - [animated-sprite](/animated-sprite): This sample app shows how to
   chain frame by frame sprite drawings together to create a moving character.
+- [Space Invaders](/SpaceInvaders): This sample app takes a lot of
+  things learned from the sample apps above and makes a Space Invaders game.
 
 ## ObjectiveC to Ruby ##
 

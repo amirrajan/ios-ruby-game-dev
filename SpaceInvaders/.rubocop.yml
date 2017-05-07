@@ -1,0 +1,35 @@
+Style/Documentation:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/MethodDefParentheses:
+  Enabled: false
+
+MultilineBlockChain:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  Enabled: false
