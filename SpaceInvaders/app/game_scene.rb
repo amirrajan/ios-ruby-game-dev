@@ -1,5 +1,5 @@
 class GameScene < SKScene
-  BULLET_SPEED = 5
+  BULLET_SPEED = 2.5
   WORLD_WIDTH = UIScreen.mainScreen.bounds.size.width
   WORLD_HEIGHT = UIScreen.mainScreen.bounds.size.height
   SHIP_SIZE = WORLD_WIDTH.fdiv(14)
@@ -7,7 +7,7 @@ class GameScene < SKScene
   ENEMY_MOVEMENT_SPACE = 7
   PLAYER_SHIP_ENEMY_BULLET_CATEGORY = 2
   ENEMY_SHIP_PLAYER_BULLET_CATEGORY = 4
-  PLAYER_Y_POSITION = 100
+  PLAYER_Y_POSITION = 150
 
   def didMoveToView view
     self.scaleMode = SKSceneScaleModeAspectFit
@@ -19,13 +19,10 @@ class GameScene < SKScene
     addChild @dead_canvas
     @bullets = []
     @enemies = []
-    @score_label = add_label(WORLD_WIDTH.fdiv(2), WORLD_HEIGHT.fdiv(2), 100)
-    @instructions_label_1 = add_label(WORLD_WIDTH - WORLD_WIDTH.fdiv(4), PLAYER_Y_POSITION - SHIP_SIZE * 2, 17)
-    @instructions_label_1.text = 'Tap hereish to move right.'
-    @instructions_label_2 = add_label(WORLD_WIDTH.fdiv(4), PLAYER_Y_POSITION - SHIP_SIZE * 2, 17)
-    @instructions_label_2.text = 'Tap hereish to move left.'
-    @instructions_label_3 = add_label(WORLD_WIDTH.fdiv(2), PLAYER_Y_POSITION + SHIP_SIZE * 1.5, 17)
-    @instructions_label_3.text = 'Tap anywhere ABOVE the ship to shoot.'
+    @score_label = add_label('', WORLD_WIDTH.fdiv(2), WORLD_HEIGHT.fdiv(2), 100)
+    @instructions_label_1 = add_label('Tap hereish to move right.', WORLD_WIDTH - WORLD_WIDTH.fdiv(4), PLAYER_Y_POSITION - SHIP_SIZE * 2, 17)
+    @instructions_label_2 = add_label('Tap hereish to move left.', WORLD_WIDTH.fdiv(4), PLAYER_Y_POSITION - SHIP_SIZE * 2, 17)
+    @instructions_label_3 = add_label('Tap anywhere ABOVE the ship to shoot.', WORLD_WIDTH.fdiv(2), PLAYER_Y_POSITION + SHIP_SIZE * 1.5, 17)
     @ship = add_sprite('ship', 0, 0, SHIP_SIZE, PLAYER_SHIP_ENEMY_BULLET_CATEGORY)
     reset_game
   end
@@ -34,7 +31,7 @@ class GameScene < SKScene
     @dx = 0
     @hide_instructions = false
     [@instructions_label_1, @instructions_label_2, @instructions_label_3].each { |i| i.alpha = 1 }
-    @ship.position = CGPointMake(WORLD_WIDTH.fdiv(2), 100)
+    @ship.position = CGPointMake(WORLD_WIDTH.fdiv(2), PLAYER_Y_POSITION)
     reset_enemies
     @time_between_enemy_bullets = 600
     @bullets.each(&:removeFromParent)
@@ -75,8 +72,8 @@ class GameScene < SKScene
     sprite
   end
 
-  def add_label x, y, font_size
-    label = SKLabelNode.labelNodeWithText '0'
+  def add_label text, x, y, font_size
+    label = SKLabelNode.labelNodeWithText text
     label.position = CGPointMake(x, y)
     label.fontSize = font_size
     addChild label
@@ -126,6 +123,9 @@ class GameScene < SKScene
                                 @ship.position.y + SHIP_SIZE.fdiv(2),
                                 BULLET_SIZE,
                                 ENEMY_SHIP_PLAYER_BULLET_CATEGORY
+    else
+      @instructions_label_3.text = 'You can only shoot one bullet at a time. Wait.'
+      @instructions_label_3.alpha = 10
     end
   end
 
