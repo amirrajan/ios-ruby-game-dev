@@ -1,4 +1,4 @@
-# Create a Single Sprite
+# Space Invaders Clone
 
 This sample app is a Space Invaders clone.
 
