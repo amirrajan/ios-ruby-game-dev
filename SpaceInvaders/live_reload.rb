@@ -1,18 +1,23 @@
 require 'readline'
 
-command = 'rake device'
+def restart
+  result = IO.popen('rake device', 'w')
+  result.puts 'do_live_reload'
+  result
+end
 
-ios_io = IO.popen(command, 'w')
-
-puts "#{Process.pid}"
+ios_io = restart
+first_time = true
 
 Signal.trap('SIGUSR1') do
-  ios_io.puts 'exit'
-  sleep 1
-  ios_io = IO.popen(command, 'w')
+  if first_time
+    first_time = false
+  else
+    ios_io.puts 'exit'
+    ios_io = restart
+  end
 end
 
-while expr = Readline.readline('> ', true)
-  ios_io.puts expr
-  sleep 0.2
-end
+`echo rerun \\"kill -30 #{Process.pid}\\" --no-notify | pbcopy`
+
+Readline.readline('Press any key to exit..', true)
