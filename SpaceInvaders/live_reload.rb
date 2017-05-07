@@ -13,7 +13,9 @@ Signal.trap('SIGUSR1') do
   if first_time
     first_time = false
   else
-    ios_io.puts 'exit'
+    repl_pid = `pgrep repl`
+    Process.kill('INT', repl_pid.to_i)
+    ios_io.close
     ios_io = restart
   end
 end
